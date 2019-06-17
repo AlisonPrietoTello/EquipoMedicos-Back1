@@ -6,6 +6,7 @@
 package com.gts.equipos.rest;
 
 import com.gts.equipos.modelo.Clientes;
+import com.gts.equipos.modelo.Empresa;
 import com.gts.equipos.service.ClienteService;
 import java.util.List;
 import java.util.Optional;
@@ -45,4 +46,8 @@ public class ClientesRest {
     public Clientes createCotizacion(@RequestBody Clientes cliente  ){
         return service.createCotizacion(cliente);
     }    
+    @RequestMapping (value="/cliente/{id}", method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
+    public String updateEmpresa(@PathVariable("id") Integer idCliente,@RequestBody Clientes cliente  ){
+        return service.updateCotizacion(idCliente,cliente);
+    }  
 }

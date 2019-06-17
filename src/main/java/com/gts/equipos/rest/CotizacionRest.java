@@ -6,8 +6,8 @@
 package com.gts.equipos.rest;
 
 
-import com.gts.equipos.modelo.Clientes;
-import com.gts.equipos.service.ClienteService;
+import com.gts.equipos.modelo.Cotizacion;
+import com.gts.equipos.service.CotizacionService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +30,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class CotizacionRest {
      @Autowired
-     private ClienteService service;
+     private CotizacionService service;
      
     @GetMapping ("/cotizaciones/list")
-    public List<Clientes> findAll(){
+    public List<Cotizacion> findAll(){
         return service.findAllCotizaciones();
     }  
     
     @GetMapping ("/cotizaciones/{id}" )
-    public Optional<Clientes> findById(@PathVariable("id") Integer id  ){
+    public Optional<Cotizacion> findById(@PathVariable("id") Integer id  ){
         return service.findCotizacionById(id);
     }   
     
     @RequestMapping (value="/cotizaciones/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
-    public Clientes createCotizacion(@RequestBody Clientes cliente  ){
-        return service.createCotizacion(cliente);
+    public Cotizacion createCotizacion(@RequestBody Cotizacion cotizacion  ){
+        return service.createCotizacion(cotizacion);
     }    
      
 }

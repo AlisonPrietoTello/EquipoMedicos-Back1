@@ -31,4 +31,14 @@ public class ClienteService {
     public Clientes createCotizacion( Clientes cliente){            
         return repo.save(cliente);
     }
+    
+     public String updateCotizacion( Integer idCliente, Clientes cliente){            
+        if (   repo.findById(idCliente) == null  )
+        {
+            return "Cliente No existe.";
+        }else {
+             repo.save(cliente);
+             return "Cliente Actualizado.!";
+        }      
+    }    
 }
