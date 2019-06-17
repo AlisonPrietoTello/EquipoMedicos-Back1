@@ -51,6 +51,6 @@ public class InstrumentosProtocoloRest {
     
     @RequestMapping (value="/rest/v1/ip/{idEmpresa}/protocolo/{idProtocolo}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
     public List<InstrumentosProtocolo> findInstrumentosProtocoloByIdEmpresa_and_IdProtocolo(@PathVariable("idEmpresa") Integer idEmpresa, @PathVariable("idProtocolo") Integer idProtocolo ){
-        return instrumentosProtocoloService.findInstrumentosProtocoloByIdEmpresa_and_IdProtocolo(idEmpresa, idProtocolo);
+        return instrumentosProtocoloService.findInstrumentosProtocoloByIdEmpresa_and_IdInstrumento(idEmpresa, idProtocolo);
     }
 }

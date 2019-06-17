@@ -5,10 +5,9 @@
  */
 package com.gts.equipos.modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "protocolos")
@@ -77,22 +76,10 @@ public class Protocolos implements Serializable {
     @Size(min = 1, max = 75)
     @Column(name = "responsable")
     private String responsable;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkProtocolo")
-    private List<InstrumentosProtocolo> instrumentosProtocoloList;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkProtocolo")
-    private List<Actividades> actividadesList;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
-    private List<Protocolos> protocolosList;
-    @JsonIgnore
-    @JoinColumn(name = "fk_empresa", referencedColumnName = "id_protocolo")
+    @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
     @ManyToOne(optional = false)
-    private Protocolos fkEmpresa;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkProtocolo")
-    private List<Equipos> equiposList;
+    private Empresa fkEmpresa;
+    
 
     public Protocolos() {
     }
@@ -158,49 +145,15 @@ public class Protocolos implements Serializable {
         this.responsable = responsable;
     }
 
-    @XmlTransient
-    public List<InstrumentosProtocolo> getInstrumentosProtocoloList() {
-        return instrumentosProtocoloList;
-    }
-
-    public void setInstrumentosProtocoloList(List<InstrumentosProtocolo> instrumentosProtocoloList) {
-        this.instrumentosProtocoloList = instrumentosProtocoloList;
-    }
-
-    @XmlTransient
-    public List<Actividades> getActividadesList() {
-        return actividadesList;
-    }
-
-    public void setActividadesList(List<Actividades> actividadesList) {
-        this.actividadesList = actividadesList;
-    }
-
-    @XmlTransient
-    public List<Protocolos> getProtocolosList() {
-        return protocolosList;
-    }
-
-    public void setProtocolosList(List<Protocolos> protocolosList) {
-        this.protocolosList = protocolosList;
-    }
-
-    public Protocolos getFkEmpresa() {
+    public Empresa getFkEmpresa() {
         return fkEmpresa;
     }
 
-    public void setFkEmpresa(Protocolos fkEmpresa) {
+    public void setFkEmpresa(Empresa fkEmpresa) {
         this.fkEmpresa = fkEmpresa;
     }
 
-    @XmlTransient
-    public List<Equipos> getEquiposList() {
-        return equiposList;
-    }
-
-    public void setEquiposList(List<Equipos> equiposList) {
-        this.equiposList = equiposList;
-    }
+   
 
     @Override
     public int hashCode() {

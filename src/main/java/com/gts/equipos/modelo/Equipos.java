@@ -6,6 +6,7 @@
 package com.gts.equipos.modelo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "equipos")
@@ -34,9 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Equipos.findByCodigo", query = "SELECT e FROM Equipos e WHERE e.codigo = :codigo")
     , @NamedQuery(name = "Equipos.findByReferencia", query = "SELECT e FROM Equipos e WHERE e.referencia = :referencia")
     , @NamedQuery(name = "Equipos.findByNombre", query = "SELECT e FROM Equipos e WHERE e.nombre = :nombre")
-    , @NamedQuery(name = "Equipos.findByEstado", query = "SELECT e FROM Equipos e WHERE e.estado = :estado ")
-    , @NamedQuery(name = "Equipos.findByEmpresaAndEquipos", query = "SELECT e FROM Equipos e WHERE e.fkEmpresa.idEmpresa = :idEmpresa AND e.idEquipos = :idEquipos")
-})
+    , @NamedQuery(name = "Equipos.findByEstado", query = "SELECT e FROM Equipos e WHERE e.estado = :estado")
+    , @NamedQuery(name = "Equipos.findByFkTipo", query = "SELECT e FROM Equipos e WHERE e.fkTipo = :fkTipo")})
 public class Equipos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,10 +62,15 @@ public class Equipos implements Serializable {
     @NotNull
     @Column(name = "estado")
     private int estado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fk_tipo")
+    private int fkTipo;
+    
+    
     @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
     @ManyToOne(optional = false)
     private Empresa fkEmpresa;
-
     @JoinColumn(name = "fk_protocolo", referencedColumnName = "id_protocolo")
     @ManyToOne(optional = false)
     private Protocolos fkProtocolo;
@@ -75,10 +82,11 @@ public class Equipos implements Serializable {
         this.idEquipos = idEquipos;
     }
 
-    public Equipos(Integer idEquipos, String referencia, int estado) {
+    public Equipos(Integer idEquipos, String referencia, int estado, int fkTipo) {
         this.idEquipos = idEquipos;
         this.referencia = referencia;
         this.estado = estado;
+        this.fkTipo = fkTipo;
     }
 
     public Integer getIdEquipos() {
@@ -121,6 +129,16 @@ public class Equipos implements Serializable {
         this.estado = estado;
     }
 
+    public int getFkTipo() {
+        return fkTipo;
+    }
+
+    public void setFkTipo(int fkTipo) {
+        this.fkTipo = fkTipo;
+    }
+
+    
+
     public Empresa getFkEmpresa() {
         return fkEmpresa;
     }
@@ -128,7 +146,6 @@ public class Equipos implements Serializable {
     public void setFkEmpresa(Empresa fkEmpresa) {
         this.fkEmpresa = fkEmpresa;
     }
-
 
     public Protocolos getFkProtocolo() {
         return fkProtocolo;

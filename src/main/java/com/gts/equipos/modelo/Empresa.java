@@ -5,9 +5,8 @@
  */
 package com.gts.equipos.modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "empresa")
@@ -80,21 +79,6 @@ public class Empresa implements Serializable {
     @Column(name = "documento_representante")
     private String documentoRepresentante;
     
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
-    private List<InstrumentosProtocolo> instrumentosProtocoloList;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
-    private List<Parametro> parametroList;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
-    private List<Actividades> actividadesList;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
-    private List<Equipos> equiposList;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
-    private List<Instrumentos> instrumentosList;
 
     public Empresa() {
     }
@@ -182,50 +166,10 @@ public class Empresa implements Serializable {
         this.documentoRepresentante = documentoRepresentante;
     }
 
-    @XmlTransient
-    public List<InstrumentosProtocolo> getInstrumentosProtocoloList() {
-        return instrumentosProtocoloList;
-    }
+    
 
-    public void setInstrumentosProtocoloList(List<InstrumentosProtocolo> instrumentosProtocoloList) {
-        this.instrumentosProtocoloList = instrumentosProtocoloList;
-    }
+    
 
-    @XmlTransient
-    public List<Parametro> getParametroList() {
-        return parametroList;
-    }
-
-    public void setParametroList(List<Parametro> parametroList) {
-        this.parametroList = parametroList;
-    }
-
-    @XmlTransient
-    public List<Actividades> getActividadesList() {
-        return actividadesList;
-    }
-
-    public void setActividadesList(List<Actividades> actividadesList) {
-        this.actividadesList = actividadesList;
-    }
-
-    @XmlTransient
-    public List<Equipos> getEquiposList() {
-        return equiposList;
-    }
-
-    public void setEquiposList(List<Equipos> equiposList) {
-        this.equiposList = equiposList;
-    }
-
-    @XmlTransient
-    public List<Instrumentos> getInstrumentosList() {
-        return instrumentosList;
-    }
-
-    public void setInstrumentosList(List<Instrumentos> instrumentosList) {
-        this.instrumentosList = instrumentosList;
-    }
 
     @Override
     public int hashCode() {
