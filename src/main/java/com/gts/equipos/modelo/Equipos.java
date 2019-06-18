@@ -41,12 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Equipos.findByFkTipo", query = "SELECT e FROM Equipos e WHERE e.fkTipo = :fkTipo")})
 public class Equipos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_equipos")
-    private Integer idEquipos;
     @Size(max = 30)
     @Column(name = "codigo")
     private String codigo;
@@ -66,6 +60,15 @@ public class Equipos implements Serializable {
     @NotNull
     @Column(name = "fk_tipo")
     private int fkTipo;
+    @OneToMany(mappedBy = "fkEquipos")
+    private Collection<CotizacionDetalle> cotizacionDetalleCollection;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_equipos")
+    private Integer idEquipos;
     
     
     @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
@@ -97,37 +100,6 @@ public class Equipos implements Serializable {
         this.idEquipos = idEquipos;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getReferencia() {
-        return referencia;
-    }
-
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
 
     public int getFkTipo() {
         return fkTipo;
@@ -178,6 +150,48 @@ public class Equipos implements Serializable {
     @Override
     public String toString() {
         return "com.gts.equipos.modelo.Equipos[ idEquipos=" + idEquipos + " ]";
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+
+    @XmlTransient
+    public Collection<CotizacionDetalle> getCotizacionDetalleCollection() {
+        return cotizacionDetalleCollection;
+    }
+
+    public void setCotizacionDetalleCollection(Collection<CotizacionDetalle> cotizacionDetalleCollection) {
+        this.cotizacionDetalleCollection = cotizacionDetalleCollection;
     }
     
 }

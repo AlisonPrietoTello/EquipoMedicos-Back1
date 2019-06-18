@@ -6,7 +6,9 @@
 package com.gts.equipos.modelo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,10 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,17 +45,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Clientes.findByEstado", query = "SELECT c FROM Clientes c WHERE c.estado = :estado")})
 public class Clientes implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_cliente")
-    private Integer idCliente;
     @Size(max = 45)
     @Column(name = "documento")
     private String documento;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
@@ -73,18 +71,27 @@ public class Clientes implements Serializable {
     private String telefonoCelular;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
     @Size(max = 45)
     @Column(name = "ciudad")
     private String ciudad;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "atencion")
     private String atencion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkCliente")
+    private Collection<Cotizacion> cotizacionCollection;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_cliente")
+    private Integer idCliente;
     @Column(name = "estado")
     private Integer estado;
 
@@ -112,21 +119,6 @@ public class Clientes implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getNombreCorto() {
         return nombreCorto;
@@ -136,13 +128,6 @@ public class Clientes implements Serializable {
         this.nombreCorto = nombreCorto;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
 
     public String getTelefonoFijo() {
         return telefonoFijo;
@@ -160,29 +145,6 @@ public class Clientes implements Serializable {
         this.telefonoCelular = telefonoCelular;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public String getAtencion() {
-        return atencion;
-    }
-
-    public void setAtencion(String atencion) {
-        this.atencion = atencion;
-    }
 
     public Integer getEstado() {
         return estado;
@@ -215,6 +177,66 @@ public class Clientes implements Serializable {
     @Override
     public String toString() {
         return "com.gts.equipos.modelo.Clientes[ idCliente=" + idCliente + " ]";
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+   
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getAtencion() {
+        return atencion;
+    }
+
+    public void setAtencion(String atencion) {
+        this.atencion = atencion;
+    }
+
+    @XmlTransient
+    public Collection<Cotizacion> getCotizacionCollection() {
+        return cotizacionCollection;
+    }
+
+    public void setCotizacionCollection(Collection<Cotizacion> cotizacionCollection) {
+        this.cotizacionCollection = cotizacionCollection;
     }
     
 }

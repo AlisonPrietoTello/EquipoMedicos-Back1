@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,6 +40,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "CotizacionDetalle.findByServicio", query = "SELECT c FROM CotizacionDetalle c WHERE c.servicio = :servicio")})
 public class CotizacionDetalle implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "calibracion")
+    private int calibracion;
+    @Size(max = 45)
+    @Column(name = "estado")
+    private String estado;
+    @Size(max = 45)
+    @Column(name = "orden")
+    private String orden;
+    @Size(max = 45)
+    @Column(name = "servicio")
+    private String servicio;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,15 +67,6 @@ public class CotizacionDetalle implements Serializable {
     private BigDecimal cantidad;
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
-    @Size(max = 45)
-    @Column(name = "estado")
-    private String estado;
-    @Size(max = 45)
-    @Column(name = "orden")
-    private String orden;
-    @Size(max = 45)
-    @Column(name = "servicio")
-    private String servicio;
     @JoinColumn(name = "fk_cotiz_encab", referencedColumnName = "id_cotiz_encab")
     @ManyToOne
     private Cotizacion fkCotizEncab;
@@ -107,29 +113,6 @@ public class CotizacionDetalle implements Serializable {
         this.valorUnitario = valorUnitario;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getOrden() {
-        return orden;
-    }
-
-    public void setOrden(String orden) {
-        this.orden = orden;
-    }
-
-    public String getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
-    }
 
     public Cotizacion getFkCotizEncab() {
         return fkCotizEncab;
@@ -170,6 +153,38 @@ public class CotizacionDetalle implements Serializable {
     @Override
     public String toString() {
         return "com.gts.equipos.modelo.CotizacionDetalle[ idCotizDeta=" + idCotizDeta + " ]";
+    }
+
+    public int getCalibracion() {
+        return calibracion;
+    }
+
+    public void setCalibracion(int calibracion) {
+        this.calibracion = calibracion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getOrden() {
+        return orden;
+    }
+
+    public void setOrden(String orden) {
+        this.orden = orden;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
     }
     
 }

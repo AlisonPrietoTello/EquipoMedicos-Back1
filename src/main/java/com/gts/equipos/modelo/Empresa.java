@@ -43,12 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Empresa.findByDocumentoRepresentante", query = "SELECT e FROM Empresa e WHERE e.documentoRepresentante = :documentoRepresentante")})
 public class Empresa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_empresa")
-    private Integer idEmpresa;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -63,7 +57,7 @@ public class Empresa implements Serializable {
     @Column(name = "nit_empresa")
     private String nitEmpresa;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Column(name = "estado")
     private int estado;
     @Size(max = 150)
@@ -78,6 +72,18 @@ public class Empresa implements Serializable {
     @Size(max = 45)
     @Column(name = "documento_representante")
     private String documentoRepresentante;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
+    private Collection<Cotizacion> cotizacionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
+    private Collection<Protocolos> protocolosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkEmpresa")
+    private Collection<Equipos> equiposCollection;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_empresa")
+    private Integer idEmpresa;
     
 
     public Empresa() {
@@ -126,13 +132,6 @@ public class Empresa implements Serializable {
         this.nitEmpresa = nitEmpresa;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
 
     public String getUrlLogo() {
         return urlLogo;
@@ -194,6 +193,44 @@ public class Empresa implements Serializable {
     @Override
     public String toString() {
         return "com.gts.equipos.modelo.Empresa[ idEmpresa=" + idEmpresa + " ]";
+    }
+
+    
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+
+    @XmlTransient
+    public Collection<Cotizacion> getCotizacionCollection() {
+        return cotizacionCollection;
+    }
+
+    public void setCotizacionCollection(Collection<Cotizacion> cotizacionCollection) {
+        this.cotizacionCollection = cotizacionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Protocolos> getProtocolosCollection() {
+        return protocolosCollection;
+    }
+
+    public void setProtocolosCollection(Collection<Protocolos> protocolosCollection) {
+        this.protocolosCollection = protocolosCollection;
+    }
+
+    @XmlTransient
+    public Collection<Equipos> getEquiposCollection() {
+        return equiposCollection;
+    }
+
+    public void setEquiposCollection(Collection<Equipos> equiposCollection) {
+        this.equiposCollection = equiposCollection;
     }
     
 }

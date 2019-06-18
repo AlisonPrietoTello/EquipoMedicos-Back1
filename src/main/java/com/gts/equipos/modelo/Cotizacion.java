@@ -51,28 +51,19 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cotizacion.findByEstado", query = "SELECT c FROM Cotizacion c WHERE c.estado = :estado")})
 public class Cotizacion implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_cotiz_encab")
-    private Integer idCotizEncab;
-    @Column(name = "fecha_sistema")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaSistema;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "codigo")
     private String codigo;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Column(name = "viatico_valor")
     private BigDecimal viaticoValor;
     @Basic(optional = false)
@@ -84,6 +75,7 @@ public class Cotizacion implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "vigencia")
     private String vigencia;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -113,6 +105,15 @@ public class Cotizacion implements Serializable {
     @NotNull
     @Column(name = "estado")
     private int estado;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_cotiz_encab")
+    private Integer idCotizEncab;
+    @Column(name = "fecha_sistema")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaSistema;
     @JoinColumn(name = "fk_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Clientes fkCliente;
@@ -162,21 +163,6 @@ public class Cotizacion implements Serializable {
         this.fechaSistema = fechaSistema;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     public BigDecimal getViaticoValor() {
         return viaticoValor;
@@ -194,21 +180,6 @@ public class Cotizacion implements Serializable {
         this.viaticoIva = viaticoIva;
     }
 
-    public String getVigencia() {
-        return vigencia;
-    }
-
-    public void setVigencia(String vigencia) {
-        this.vigencia = vigencia;
-    }
-
-    public String getEntrega() {
-        return entrega;
-    }
-
-    public void setEntrega(String entrega) {
-        this.entrega = entrega;
-    }
 
     public String getGarantiaDf() {
         return garantiaDf;
@@ -234,17 +205,6 @@ public class Cotizacion implements Serializable {
         this.condicionPago = condicionPago;
     }
 
-    public String getResponsable() {
-        return responsable;
-    }
-
-    public void setResponsable(String responsable) {
-        this.responsable = responsable;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
     
     @XmlTransient
     public String getEstadoStr() {
@@ -257,9 +217,6 @@ public class Cotizacion implements Serializable {
         return text;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
 
     public Clientes getFkCliente() {
         return fkCliente;
@@ -309,6 +266,57 @@ public class Cotizacion implements Serializable {
     @Override
     public String toString() {
         return "com.gts.equipos.modelo.Cotizacion[ idCotizEncab=" + idCotizEncab + " ]";
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+
+
+    public String getVigencia() {
+        return vigencia;
+    }
+
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
+    }
+
+    public String getEntrega() {
+        return entrega;
+    }
+
+    public void setEntrega(String entrega) {
+        this.entrega = entrega;
+    }
+
+
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
     
 }

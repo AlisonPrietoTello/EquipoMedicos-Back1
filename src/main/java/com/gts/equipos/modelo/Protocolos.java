@@ -45,12 +45,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Protocolos.findByResponsable", query = "SELECT p FROM Protocolos p WHERE p.responsable = :responsable")})
 public class Protocolos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_protocolo")
-    private Integer idProtocolo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 75)
@@ -76,6 +70,15 @@ public class Protocolos implements Serializable {
     @Size(min = 1, max = 75)
     @Column(name = "responsable")
     private String responsable;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkProtocolo")
+    private Collection<Equipos> equiposCollection;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_protocolo")
+    private Integer idProtocolo;
     @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
     @ManyToOne(optional = false)
     private Empresa fkEmpresa;
@@ -103,6 +106,42 @@ public class Protocolos implements Serializable {
 
     public void setIdProtocolo(Integer idProtocolo) {
         this.idProtocolo = idProtocolo;
+    }
+
+
+    public Empresa getFkEmpresa() {
+        return fkEmpresa;
+    }
+
+    public void setFkEmpresa(Empresa fkEmpresa) {
+        this.fkEmpresa = fkEmpresa;
+    }
+
+   
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idProtocolo != null ? idProtocolo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Protocolos)) {
+            return false;
+        }
+        Protocolos other = (Protocolos) object;
+        if ((this.idProtocolo == null && other.idProtocolo != null) || (this.idProtocolo != null && !this.idProtocolo.equals(other.idProtocolo))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.gts.equipos.modelo.Protocolos[ idProtocolo=" + idProtocolo + " ]";
     }
 
     public String getCodigo() {
@@ -145,39 +184,13 @@ public class Protocolos implements Serializable {
         this.responsable = responsable;
     }
 
-    public Empresa getFkEmpresa() {
-        return fkEmpresa;
+    @XmlTransient
+    public Collection<Equipos> getEquiposCollection() {
+        return equiposCollection;
     }
 
-    public void setFkEmpresa(Empresa fkEmpresa) {
-        this.fkEmpresa = fkEmpresa;
-    }
-
-   
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idProtocolo != null ? idProtocolo.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Protocolos)) {
-            return false;
-        }
-        Protocolos other = (Protocolos) object;
-        if ((this.idProtocolo == null && other.idProtocolo != null) || (this.idProtocolo != null && !this.idProtocolo.equals(other.idProtocolo))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.gts.equipos.modelo.Protocolos[ idProtocolo=" + idProtocolo + " ]";
+    public void setEquiposCollection(Collection<Equipos> equiposCollection) {
+        this.equiposCollection = equiposCollection;
     }
     
 }
