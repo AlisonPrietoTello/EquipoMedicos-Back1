@@ -11,6 +11,8 @@
     <class>com.gts.equipos.modelo.Empresa</class>
     <class>com.gts.equipos.modelo.Equipos</class>
     <class>com.gts.equipos.modelo.Protocolos</class>
+    <class>com.gts.equipos.modelo.Ordenes</class>
+    <class>com.gts.equipos.modelo.OrdenesDetalle</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://plataforma.cflyqudqcoq8.us-east-2.rds.amazonaws.com:3306/equiposm?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="equiposm"/>
