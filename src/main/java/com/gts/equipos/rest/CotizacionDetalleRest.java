@@ -30,17 +30,17 @@ public class CotizacionDetalleRest {
      @Autowired
      private CotizacionDetalleService service;
      
-    @GetMapping ("/cotizacionDetalle/list")
+    @GetMapping ("/cotizacionesDetalle/list")
     public List<CotizacionDetalle> findAll(){
         return service.findAll();
     }  
     
-    @GetMapping ("/cotizacionDetalle/{id}" )
+    @GetMapping ("/cotizacionesDetalle/{id}" )
     public Optional<CotizacionDetalle> findById(@PathVariable("id") Integer id  ){
         return service.findCotizacionById(id);
     }   
     
-    @RequestMapping (value="/cotizacionDetalle/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
+    @RequestMapping (value="/cotizacionesDetalle/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
     public CotizacionDetalle createCotizacionDetalle(@RequestBody CotizacionDetalle cotizacion  ){
         return service.createCotizacionDetalle(cotizacion);
     }    
