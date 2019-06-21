@@ -19,4 +19,7 @@ public interface EquiposRepository extends JpaRepository< Equipos, Integer>{
     
     @Query("SELECT e FROM Equipos e WHERE e.fkEmpresa.idEmpresa = :idEmpresa AND e.idEquipos = :idEquipos")
     List<Equipos> findByEmpresaAndEquipos(@Param("idEmpresa") Integer IdEmpresa, @Param("idEquipos") Integer IdEquipos);
+
+    @Query(value="SELECT * FROM equipos e WHERE e.fk_empresa = :idEmpresa", nativeQuery = true)
+    List<Equipos> findByEmpresa(@Param("idEmpresa") Integer idEmpresa);
 }

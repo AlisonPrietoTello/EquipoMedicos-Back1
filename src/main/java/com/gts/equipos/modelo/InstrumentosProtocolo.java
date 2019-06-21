@@ -21,16 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "instrumentos_protocolo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "InstrumentosProtocolo.findAll", query = "SELECT i FROM InstrumentosProtocolo i")
-    , @NamedQuery(name = "InstrumentosProtocolo.findInstrumentosProtocoloByIdEmpresa_and_IdInstrumento", query = "SELECT i FROM InstrumentosProtocolo i where i.fkEmpresa.idEmpresa = :idEmpresa  AND i.fkInstrumento.idInstrumentos= :idInstrumento")  
-        , @NamedQuery(name = "InstrumentosProtocolo.findInstrumentosProtocoloByIdEmpresa_and_IdProtocolo", query = "SELECT i FROM InstrumentosProtocolo i where i.fkEmpresa.idEmpresa = :idEmpresa  AND i.fkProtocolo.idProtocolo = :idProtocolo")    
-    , @NamedQuery(name = "InstrumentosProtocolo.findByIdInstProt", query = "SELECT i FROM InstrumentosProtocolo i WHERE i.idInstProt = :idInstProt")})
+    @NamedQuery(name = "InstrumentosProtocolo.findAll", query = "SELECT i FROM InstrumentosProtocolo i")})
 public class InstrumentosProtocolo implements Serializable {
 
     private static final long serialVersionUID = 1L;

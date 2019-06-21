@@ -5,8 +5,14 @@
  */
 package com.gts.equipos.repository;
 
-import com.gts.equipos.modelo.Cotizacion;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.gts.equipos.modelo.Cotizacion;
 
 /**
  *
@@ -14,4 +20,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CotizacionRepository extends JpaRepository<Cotizacion, Integer>{
     
+    @Query("SELECT c FROM Cotizacion c where c.fkEmpresa.idEmpresa = :idEmpresa and c.fkCliente.estado = 1")
+    public List<Cotizacion> findCotizacionesClientesActivos(@Param("idEmpresa") Integer idEmpresa);
+    
+    @Query(value = "SELECT count(*) FROM cotizacion cot, clientes cli where cot.fk_empresa = :idEmpresa and cot.fk_cliente = cli.id_cliente ", nativeQuery = true)
+    public Integer totalCotizacionesByEmpresa(@Param("idEmpresa") Integer idEmpresa);
+    
+    public List<Cotizacion> findByEstado(@Param("estado") Integer estado);
 }

@@ -27,21 +27,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest/v1/")
 @CrossOrigin(origins={"http://localhost:4200","*"})
 public class CotizacionDetalleRest {
-    @Autowired
+     @Autowired
      private CotizacionDetalleService service;
      
-    @GetMapping ("/cotizacionesDetalle/list")
+    @GetMapping ("/cotizacionDetalle/list")
     public List<CotizacionDetalle> findAll(){
-        return service.findAllCotizaciones();
+        return service.findAll();
     }  
     
-    @GetMapping ("/cotizacionesDetalle/{id}" )
+    @GetMapping ("/cotizacionDetalle/{id}" )
     public Optional<CotizacionDetalle> findById(@PathVariable("id") Integer id  ){
         return service.findCotizacionById(id);
     }   
     
-    @RequestMapping (value="/cotizacionesDetalle/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
-    public CotizacionDetalle createCotizacion(@RequestBody CotizacionDetalle cotizacion  ){
-        return service.createCotizacion(cotizacion);
+    @RequestMapping (value="/cotizacionDetalle/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
+    public CotizacionDetalle createCotizacionDetalle(@RequestBody CotizacionDetalle cotizacion  ){
+        return service.createCotizacionDetalle(cotizacion);
     }    
 }

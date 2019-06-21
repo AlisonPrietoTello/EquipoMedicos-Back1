@@ -45,6 +45,11 @@ public class CotizacionRest {
     @RequestMapping (value="/cotizaciones/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
     public Cotizacion createCotizacion(@RequestBody Cotizacion cotizacion  ){
         return service.createCotizacion(cotizacion);
-    }    
+    }   
+    
+    @GetMapping ("/cotizaciones/activas/{idEmpresa}" )
+    public List<Cotizacion> findCotizacionesClientesActivos(@PathVariable("idEmpresa") Integer idEmpresa ){
+        return service.findCotizacionesClientesActivos(idEmpresa);
+    } 
      
 }

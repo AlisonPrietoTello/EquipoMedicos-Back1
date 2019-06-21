@@ -6,25 +6,24 @@
 package com.gts.equipos.modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
@@ -34,19 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "ordenes")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ordenes.findAll", query = "SELECT o FROM Ordenes o")
-    , @NamedQuery(name = "Ordenes.findByNumOrden", query = "SELECT o FROM Ordenes o WHERE o.numOrden = :numOrden")
-    , @NamedQuery(name = "Ordenes.findByIdOrdenes", query = "SELECT o FROM Ordenes o WHERE o.idOrdenes = :idOrdenes")
-    , @NamedQuery(name = "Ordenes.findByFechaOrden", query = "SELECT o FROM Ordenes o WHERE o.fechaOrden = :fechaOrden")
-    , @NamedQuery(name = "Ordenes.findByHerramientas", query = "SELECT o FROM Ordenes o WHERE o.herramientas = :herramientas")
-    , @NamedQuery(name = "Ordenes.findByGafasSeguridad", query = "SELECT o FROM Ordenes o WHERE o.gafasSeguridad = :gafasSeguridad")
-    , @NamedQuery(name = "Ordenes.findByGuantesDesechables", query = "SELECT o FROM Ordenes o WHERE o.guantesDesechables = :guantesDesechables")
-    , @NamedQuery(name = "Ordenes.findByTapaBocas", query = "SELECT o FROM Ordenes o WHERE o.tapaBocas = :tapaBocas")
-    , @NamedQuery(name = "Ordenes.findByGorro", query = "SELECT o FROM Ordenes o WHERE o.gorro = :gorro")
-    , @NamedQuery(name = "Ordenes.findByBata", query = "SELECT o FROM Ordenes o WHERE o.bata = :bata")
-    , @NamedQuery(name = "Ordenes.findByRiesgos", query = "SELECT o FROM Ordenes o WHERE o.riesgos = :riesgos")
-    , @NamedQuery(name = "Ordenes.findByComentarios", query = "SELECT o FROM Ordenes o WHERE o.comentarios = :comentarios")
-    , @NamedQuery(name = "Ordenes.findByEsatdoOrden", query = "SELECT o FROM Ordenes o WHERE o.esatdoOrden = :esatdoOrden")})
+    @NamedQuery(name = "Ordenes.findAll", query = "SELECT o FROM Ordenes o")})
 public class Ordenes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -96,8 +83,13 @@ public class Ordenes implements Serializable {
     @NotNull
     @Column(name = "esatdo_orden")
     private int esatdoOrden;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkOrdenes")
-    private Collection<OrdenesDetalle> ordenesDetalleCollection;
+    
+    @JoinColumn(name = "fk_cotizacion", referencedColumnName = "id_cotiz_encab")
+    @ManyToOne(optional = false)
+    private Cotizacion fkCotizacion;
+    @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
+    @ManyToOne(optional = false)
+    private Empresa fkEmpresa;
 
     public Ordenes() {
     }
@@ -213,13 +205,20 @@ public class Ordenes implements Serializable {
         this.esatdoOrden = esatdoOrden;
     }
 
-    @XmlTransient
-    public Collection<OrdenesDetalle> getOrdenesDetalleCollection() {
-        return ordenesDetalleCollection;
+    public Cotizacion getFkCotizacion() {
+        return fkCotizacion;
     }
 
-    public void setOrdenesDetalleCollection(Collection<OrdenesDetalle> ordenesDetalleCollection) {
-        this.ordenesDetalleCollection = ordenesDetalleCollection;
+    public void setFkCotizacion(Cotizacion fkCotizacion) {
+        this.fkCotizacion = fkCotizacion;
+    }
+
+    public Empresa getFkEmpresa() {
+        return fkEmpresa;
+    }
+
+    public void setFkEmpresa(Empresa fkEmpresa) {
+        this.fkEmpresa = fkEmpresa;
     }
 
     @Override

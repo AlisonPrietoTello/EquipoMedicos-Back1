@@ -5,11 +5,8 @@
  */
 package com.gts.equipos.modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,26 +14,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "grupo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g")
-    , @NamedQuery(name = "Grupo.findByFkEmpresa", query = "SELECT g FROM Grupo g WHERE g.fkEmpresa = :fkEmpresa")
-    , @NamedQuery(name = "Grupo.findByFkEmpresaAndGrupos", query = "SELECT g FROM Grupo g WHERE g.fkEmpresa = :idEmpresa And g.idGrupo = :idGrupos")
-    , @NamedQuery(name = "Grupo.findByIdGrupo", query = "SELECT g FROM Grupo g WHERE g.idGrupo = :idGrupo")  
-    , @NamedQuery(name = "Grupo.findByNombreGrupo", query = "SELECT g FROM Grupo g WHERE g.nombreGrupo = :nombreGrupo")})
+    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g")})
 public class Grupo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,10 +45,6 @@ public class Grupo implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "nombre_grupo")
     private String nombreGrupo;
-    
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkGrupo")
-    private List<Parametro> parametroList;
 
     public Grupo() {
     }
@@ -94,15 +81,6 @@ public class Grupo implements Serializable {
 
     public void setNombreGrupo(String nombreGrupo) {
         this.nombreGrupo = nombreGrupo;
-    }
-
-    @XmlTransient
-    public List<Parametro> getParametroList() {
-        return parametroList;
-    }
-
-    public void setParametroList(List<Parametro> parametroList) {
-        this.parametroList = parametroList;
     }
 
     @Override

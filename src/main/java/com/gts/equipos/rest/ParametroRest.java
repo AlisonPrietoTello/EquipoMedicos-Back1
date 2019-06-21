@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins={"http://localhost:4200","*"})
+@RequestMapping ("/rest/v1/")
 public class ParametroRest {
     
     @Autowired
     private ParametroService parametroService;
     
-    //Lista de parametros
-    @RequestMapping (value="/rest/v1/parametro/list", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
+    @GetMapping ("/parametro/list")
     public List<Parametro> findAll(){
         return parametroService.findAllParametro();
-
-    
-
     }     
 
     @RequestMapping (value="/rest/v1/parametro/filtro_empresa_parametro/{idEmpresa}/{idParametro}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )

@@ -1,49 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gts.equipos.service;
 
 import com.gts.equipos.modelo.Ordenes;
 import com.gts.equipos.repository.OrdenesRepository;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author laszlo
- */
 @Service
 public class OrdenesService {
     @Autowired
-    private OrdenesRepository protocolosRepository;
+    private OrdenesRepository OrdenesDao;
     
-     public List<Ordenes> findAllOrdenes(){
-        return protocolosRepository.findAll();
+    public List<Ordenes> findAllOrdenes(){
+        return OrdenesDao.findAll();
+    } 
+
+    public Optional<Ordenes> findOrdenesById( Integer id){
+        return OrdenesDao.findById(id);
     }
-     
-     
-     public Optional<Ordenes> findByIdOrdenes( Integer id){
-        return protocolosRepository.findById(id);
-    } 
-     
-     
-    public Ordenes createOrdenes( Ordenes ordenes){            
-        return protocolosRepository.save(ordenes);
-    } 
     
-    public String updateOrdenes( Integer idProtocolos, Ordenes ordenes){            
-        if (protocolosRepository.findById(idProtocolos) == null)
+    public Ordenes cretaeOrdenes( Ordenes orden){            
+        return OrdenesDao.save(orden);
+    }
+    
+    public String updateOrden( Integer idOrden, Ordenes orden){            
+        if (OrdenesDao.findById(idOrden) == null)
         {
-            return "El Protocolo no existe.";
+            return "El parametro no existe.";
         }
         else
         {
-             protocolosRepository.save(ordenes);
-             return "Protocolo actualizado.!";
+        	OrdenesDao.save(orden);
+             return "Parametro actualizada.!";
         }      
     }
+    
 }

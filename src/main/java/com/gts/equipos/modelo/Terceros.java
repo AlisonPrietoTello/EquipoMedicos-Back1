@@ -23,24 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "terceros")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Terceros.findAll", query = "SELECT t FROM Terceros t")
-    , @NamedQuery(name = "Terceros.findByIdTerceros", query = "SELECT t FROM Terceros t WHERE t.idTerceros = :idTerceros")
-    , @NamedQuery(name = "Terceros.findByDocumento", query = "SELECT t FROM Terceros t WHERE t.documento = :documento")
-    , @NamedQuery(name = "Terceros.findByNombre", query = "SELECT t FROM Terceros t WHERE t.nombre = :nombre")
-    , @NamedQuery(name = "Terceros.findByNombreCorto", query = "SELECT t FROM Terceros t WHERE t.nombreCorto = :nombreCorto")
-    , @NamedQuery(name = "Terceros.findByDireccion", query = "SELECT t FROM Terceros t WHERE t.direccion = :direccion")
-    , @NamedQuery(name = "Terceros.findByTelefonoFijo", query = "SELECT t FROM Terceros t WHERE t.telefonoFijo = :telefonoFijo")
-    , @NamedQuery(name = "Terceros.findByTelefonoCelular", query = "SELECT t FROM Terceros t WHERE t.telefonoCelular = :telefonoCelular")
-    , @NamedQuery(name = "Terceros.findByEmail", query = "SELECT t FROM Terceros t WHERE t.email = :email")
-    , @NamedQuery(name = "Terceros.findByCiudad", query = "SELECT t FROM Terceros t WHERE t.ciudad = :ciudad")
-    , @NamedQuery(name = "Terceros.findByAtencion", query = "SELECT t FROM Terceros t WHERE t.atencion = :atencion")
-    , @NamedQuery(name = "Terceros.findByEstado", query = "SELECT t FROM Terceros t WHERE t.estado = :estado")})
+    @NamedQuery(name = "Terceros.findAll", query = "SELECT t FROM Terceros t")})
 public class Terceros implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -87,10 +76,8 @@ public class Terceros implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "atencion")
     private String atencion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "estado")
-    private int estado;
+    private Integer estado;
     @JoinColumn(name = "fk_tipo_tercero", referencedColumnName = "id_parametro")
     @ManyToOne(optional = false)
     private Parametro fkTipoTercero;
@@ -102,14 +89,13 @@ public class Terceros implements Serializable {
         this.idTerceros = idTerceros;
     }
 
-    public Terceros(Integer idTerceros, String nombre, String direccion, String telefonoCelular, String email, String atencion, int estado) {
+    public Terceros(Integer idTerceros, String nombre, String direccion, String telefonoCelular, String email, String atencion) {
         this.idTerceros = idTerceros;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefonoCelular = telefonoCelular;
         this.email = email;
         this.atencion = atencion;
-        this.estado = estado;
     }
 
     public Integer getIdTerceros() {
@@ -191,12 +177,12 @@ public class Terceros implements Serializable {
     public void setAtencion(String atencion) {
         this.atencion = atencion;
     }
-    
-    public int getEstado() {
-    return estado;
+
+    public Integer getEstado() {
+        return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

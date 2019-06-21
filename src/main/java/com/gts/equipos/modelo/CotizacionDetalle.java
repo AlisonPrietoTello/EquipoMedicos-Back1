@@ -30,29 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "cotizacion_detalle")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CotizacionDetalle.findAll", query = "SELECT c FROM CotizacionDetalle c")
-    , @NamedQuery(name = "CotizacionDetalle.findByIdCotizDeta", query = "SELECT c FROM CotizacionDetalle c WHERE c.idCotizDeta = :idCotizDeta")
-    , @NamedQuery(name = "CotizacionDetalle.findByTipoServicio", query = "SELECT c FROM CotizacionDetalle c WHERE c.tipoServicio = :tipoServicio")
-    , @NamedQuery(name = "CotizacionDetalle.findByCantidad", query = "SELECT c FROM CotizacionDetalle c WHERE c.cantidad = :cantidad")
-    , @NamedQuery(name = "CotizacionDetalle.findByValorUnitario", query = "SELECT c FROM CotizacionDetalle c WHERE c.valorUnitario = :valorUnitario")
-    , @NamedQuery(name = "CotizacionDetalle.findByEstado", query = "SELECT c FROM CotizacionDetalle c WHERE c.estado = :estado")
-    , @NamedQuery(name = "CotizacionDetalle.findByOrden", query = "SELECT c FROM CotizacionDetalle c WHERE c.orden = :orden")
-    , @NamedQuery(name = "CotizacionDetalle.findByServicio", query = "SELECT c FROM CotizacionDetalle c WHERE c.servicio = :servicio")})
+    @NamedQuery(name = "CotizacionDetalle.findAll", query = "SELECT c FROM CotizacionDetalle c")})
 public class CotizacionDetalle implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "calibracion")
-    private int calibracion;
-    @Size(max = 45)
-    @Column(name = "estado")
-    private String estado;
-    @Size(max = 45)
-    @Column(name = "orden")
-    private String orden;
-    @Size(max = 45)
-    @Column(name = "servicio")
-    private String servicio;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,11 +41,24 @@ public class CotizacionDetalle implements Serializable {
     private Integer idCotizDeta;
     @Column(name = "tipo_servicio")
     private Integer tipoServicio;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "calibracion")
+    private int calibracion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "cantidad")
     private BigDecimal cantidad;
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
+    @Size(max = 45)
+    @Column(name = "estado")
+    private String estado;
+    @Size(max = 45)
+    @Column(name = "orden")
+    private String orden;
+    @Size(max = 45)
+    @Column(name = "servicio")
+    private String servicio;
     @JoinColumn(name = "fk_cotiz_encab", referencedColumnName = "id_cotiz_encab")
     @ManyToOne
     private Cotizacion fkCotizEncab;
@@ -79,6 +71,11 @@ public class CotizacionDetalle implements Serializable {
 
     public CotizacionDetalle(Integer idCotizDeta) {
         this.idCotizDeta = idCotizDeta;
+    }
+
+    public CotizacionDetalle(Integer idCotizDeta, int calibracion) {
+        this.idCotizDeta = idCotizDeta;
+        this.calibracion = calibracion;
     }
 
     public Integer getIdCotizDeta() {
@@ -97,6 +94,14 @@ public class CotizacionDetalle implements Serializable {
         this.tipoServicio = tipoServicio;
     }
 
+    public int getCalibracion() {
+        return calibracion;
+    }
+
+    public void setCalibracion(int calibracion) {
+        this.calibracion = calibracion;
+    }
+
     public BigDecimal getCantidad() {
         return cantidad;
     }
@@ -113,6 +118,29 @@ public class CotizacionDetalle implements Serializable {
         this.valorUnitario = valorUnitario;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getOrden() {
+        return orden;
+    }
+
+    public void setOrden(String orden) {
+        this.orden = orden;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
 
     public Cotizacion getFkCotizEncab() {
         return fkCotizEncab;
@@ -153,38 +181,6 @@ public class CotizacionDetalle implements Serializable {
     @Override
     public String toString() {
         return "com.gts.equipos.modelo.CotizacionDetalle[ idCotizDeta=" + idCotizDeta + " ]";
-    }
-
-    public int getCalibracion() {
-        return calibracion;
-    }
-
-    public void setCalibracion(int calibracion) {
-        this.calibracion = calibracion;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getOrden() {
-        return orden;
-    }
-
-    public void setOrden(String orden) {
-        this.orden = orden;
-    }
-
-    public String getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
     }
     
 }

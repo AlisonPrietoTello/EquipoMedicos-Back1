@@ -16,29 +16,20 @@ import org.springframework.stereotype.Service;
  *
  * @author laszlo
  */
+
 @Service
 public class CotizacionDetalleService {
     @Autowired
     private CotizacionDetalleRepository repo;
     
-    public List<CotizacionDetalle> findAllCotizaciones(){
+    public List<CotizacionDetalle> findAll(){
         return repo.findAll();
     } 
     public Optional<CotizacionDetalle> findCotizacionById(Integer id){
         return repo.findById(id);
     }
 
-    public CotizacionDetalle createCotizacion( CotizacionDetalle cotitizacionDetalle){            
-        return repo.save(cotitizacionDetalle);
+    public CotizacionDetalle createCotizacionDetalle( CotizacionDetalle cotizacionDetalle){            
+        return repo.save(cotizacionDetalle);
     }
-    
-     public String updateCotizacion( Integer idCliente, CotizacionDetalle cotitizacionDetalle){            
-        if (   repo.findById(idCliente) == null  )
-        {
-            return "Cliente No existe.";
-        }else {
-             repo.save(cotitizacionDetalle);
-             return "Cliente Actualizado.!";
-        }      
-    } 
 }

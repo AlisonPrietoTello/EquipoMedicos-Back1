@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CotizacionService {
-        @Autowired
+    @Autowired
     private CotizacionRepository cotizacionRepository;
     
     public List<Cotizacion> findAllCotizaciones(){
@@ -31,5 +31,10 @@ public class CotizacionService {
     public Cotizacion createCotizacion( Cotizacion cotizacion){            
         return cotizacionRepository.save(cotizacion);
     }
+    
+    public List<Cotizacion> findCotizacionesClientesActivos(Integer idEmpresa){
+        return cotizacionRepository.findCotizacionesClientesActivos(idEmpresa);
+    } 
+    
     
 }

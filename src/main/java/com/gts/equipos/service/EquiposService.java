@@ -41,4 +41,9 @@ public class EquiposService {
              return "Equipo actualizado.!";
         }      
     }
+
+	public List<Equipos> findByEmpresa(Integer idEmpresa) {
+		// TODO Auto-generated method stub
+		return equiposRepository.findByEmpresa(idEmpresa);
+	}
 }

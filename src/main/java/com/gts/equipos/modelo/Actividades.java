@@ -21,23 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "actividades")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Actividades.findAll", query = "SELECT a FROM Actividades a")
-    , @NamedQuery(name = "Actividades.findByIdActividades", query = "SELECT a FROM Actividades a WHERE a.idActividades = :idActividades")
-    , @NamedQuery(name = "Actividades.findByItems", query = "SELECT a FROM Actividades a WHERE a.items = :items")
-    , @NamedQuery(name = "Actividades.findByIEmpresaAndActividades", query = "SELECT a FROM Actividades a WHERE a.fkEmpresa.idEmpresa = :idEmpresa AND a.idActividades = :idActividades")
-        , @NamedQuery(name = "Actividades.findByActividadesXProtocolo", query = "SELECT a FROM Actividades a WHERE a.fkProtocolo.idProtocolo = :idPrptocolo")
-    , @NamedQuery(name = "Actividades.findByIProtocoloAndActividades", query = "SELECT a FROM Actividades a WHERE a.idActividades = :idActividades AND a.fkProtocolo.idProtocolo= :idProtocolo")
-    , @NamedQuery(name = "Actividades.findByIEmpresaAndProtoloAndactividades", query = "SELECT a FROM Actividades a WHERE a.fkEmpresa.idEmpresa =:idEmpresa AND a.fkProtocolo.idProtocolo = :idProtocolo AND a.idActividades = :idActividades")
-    , @NamedQuery(name = "Actividades.findByActividades", query = "SELECT a FROM Actividades a WHERE a.actividades = :actividades")
-    , @NamedQuery(name = "Actividades.findByOrden", query = "SELECT a FROM Actividades a WHERE a.orden = :orden")
-    , @NamedQuery(name = "Actividades.findByTipo", query = "SELECT a FROM Actividades a WHERE a.tipo = :tipo")
-    , @NamedQuery(name = "Actividades.findByEstado", query = "SELECT a FROM Actividades a WHERE a.estado = :estado")})
+    @NamedQuery(name = "Actividades.findAll", query = "SELECT a FROM Actividades a")})
 public class Actividades implements Serializable {
 
     private static final long serialVersionUID = 1L;

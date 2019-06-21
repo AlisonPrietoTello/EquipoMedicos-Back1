@@ -6,6 +6,7 @@
 package com.gts.equipos.repository;
 
 import com.gts.equipos.modelo.Protocolos;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +14,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Xamir Mercado
  */
 public interface ProtocolosRepository extends JpaRepository<Protocolos, Integer>{
-  
 }

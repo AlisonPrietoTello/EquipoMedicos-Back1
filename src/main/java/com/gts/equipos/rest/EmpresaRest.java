@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Erick Arias
  */
 @RestController
-@RequestMapping("/rest/v1/")
 @CrossOrigin(origins={"http://localhost:4200","*"})
 
 public class EmpresaRest {
@@ -31,22 +30,22 @@ public class EmpresaRest {
     @Autowired
     private EmpresaService empresaService;
     
-    @RequestMapping (value="empresa/list", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
+    @RequestMapping (value="/rest/v1/empresa/list", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
     public List<Empresa> findAll(){
         return empresaService.findAllEmpresa();
     }     
     
-    @RequestMapping (value="empresa/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
+    @RequestMapping (value="/rest/v1/empresa/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
     public Optional<Empresa> findById(@PathVariable("id") Integer idEmpresa  ){
         return empresaService.findEmpresaById(idEmpresa);
     }
      
-    @RequestMapping (value="empresa/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
+    @RequestMapping (value="/rest/v1/empresa/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
     public Empresa createEmpresa(@RequestBody Empresa empresa  ){
         return empresaService.cretaeEmpresa(empresa);
     }    
     
-    @RequestMapping (value="empresa/{id}", method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
+    @RequestMapping (value="/rest/v1/empresa/{id}", method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
     public String updateEmpresa(@PathVariable("id") Integer idEmpresa,@RequestBody Empresa empresa  ){
         return empresaService.updateEmpresa(idEmpresa,empresa);
     }  

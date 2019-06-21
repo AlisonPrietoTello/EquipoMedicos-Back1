@@ -5,11 +5,8 @@
  */
 package com.gts.equipos.modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,26 +16,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Xamir Mercado
+ * @author laszlo
  */
 @Entity
 @Table(name = "instrumentos")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Instrumentos.findAll", query = "SELECT i FROM Instrumentos i")
-    , @NamedQuery(name = "Instrumentos.findByIdInstrumentos", query = "SELECT i FROM Instrumentos i WHERE i.idInstrumentos = :idInstrumentos")
-    , @NamedQuery(name = "Instrumentos.findByNombre", query = "SELECT i FROM Instrumentos i WHERE i.nombre = :nombre")
-    , @NamedQuery(name = "Instrumentos.findByMarca", query = "SELECT i FROM Instrumentos i WHERE i.marca = :marca")
-    , @NamedQuery(name = "Instrumentos.findByModelo", query = "SELECT i FROM Instrumentos i WHERE i.modelo = :modelo")
-    , @NamedQuery(name = "Instrumentos.findByEmpresaAndInstrumentos", query = "SELECT i FROM Instrumentos i WHERE i.fkEmpresa.idEmpresa = :idEmpresa AND i.idInstrumentos = :idInstrumentos")})
+    @NamedQuery(name = "Instrumentos.findAll", query = "SELECT i FROM Instrumentos i")})
 public class Instrumentos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,13 +46,10 @@ public class Instrumentos implements Serializable {
     @Size(max = 250)
     @Column(name = "modelo")
     private String modelo;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkInstrumento")
-    private List<InstrumentosProtocolo> instrumentosProtocoloList;
-    
     @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
     @ManyToOne(optional = false)
     private Empresa fkEmpresa;
+    
 
     public Instrumentos() {
     }
@@ -101,15 +88,6 @@ public class Instrumentos implements Serializable {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
-    }
-
-    @XmlTransient
-    public List<InstrumentosProtocolo> getInstrumentosProtocoloList() {
-        return instrumentosProtocoloList;
-    }
-
-    public void setInstrumentosProtocoloList(List<InstrumentosProtocolo> instrumentosProtocoloList) {
-        this.instrumentosProtocoloList = instrumentosProtocoloList;
     }
 
     public Empresa getFkEmpresa() {

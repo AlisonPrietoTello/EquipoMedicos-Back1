@@ -24,7 +24,10 @@ public class EquiposRest {
     public List<Equipos> findAll(){
         return equiposService.findAllEquipos();
     }
-    
+    @RequestMapping (value="/rest/v1/equipos/{idEmpresa}/list", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
+    public List<Equipos> findByEmpresa(@PathVariable("idEmpresa") Integer idEmpresa){
+        return equiposService.findByEmpresa(idEmpresa);
+    }
     @RequestMapping (value="/rest/v1/equipos/{idEmpresa}/{idEquipos}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE  )
     public List<Equipos> findByEmpresaAndEquipos(@PathVariable("idEmpresa") Integer idEmpresa, @PathVariable("idEquipos") Integer idEquipos ){
         return equiposService.findByEmpresaAndEquipos(idEmpresa, idEquipos);

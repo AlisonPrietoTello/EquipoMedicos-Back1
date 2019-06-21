@@ -6,7 +6,6 @@
 package com.gts.equipos.rest;
 
 import com.gts.equipos.modelo.Clientes;
-import com.gts.equipos.modelo.Empresa;
 import com.gts.equipos.service.ClienteService;
 import java.util.List;
 import java.util.Optional;

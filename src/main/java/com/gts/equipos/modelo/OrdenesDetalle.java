@@ -32,15 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ordenes_detalle")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrdenesDetalle.findAll", query = "SELECT o FROM OrdenesDetalle o")
-    , @NamedQuery(name = "OrdenesDetalle.findByIdOrdenesDetalle", query = "SELECT o FROM OrdenesDetalle o WHERE o.idOrdenesDetalle = :idOrdenesDetalle")
-    , @NamedQuery(name = "OrdenesDetalle.findByTipoServicio", query = "SELECT o FROM OrdenesDetalle o WHERE o.tipoServicio = :tipoServicio")
-    , @NamedQuery(name = "OrdenesDetalle.findByCalibracion", query = "SELECT o FROM OrdenesDetalle o WHERE o.calibracion = :calibracion")
-    , @NamedQuery(name = "OrdenesDetalle.findByFechaProgramada", query = "SELECT o FROM OrdenesDetalle o WHERE o.fechaProgramada = :fechaProgramada")
-    , @NamedQuery(name = "OrdenesDetalle.findByFkResponsable", query = "SELECT o FROM OrdenesDetalle o WHERE o.fkResponsable = :fkResponsable")
-    , @NamedQuery(name = "OrdenesDetalle.findByFechaRealizada", query = "SELECT o FROM OrdenesDetalle o WHERE o.fechaRealizada = :fechaRealizada")
-    , @NamedQuery(name = "OrdenesDetalle.findByNumeroReporte", query = "SELECT o FROM OrdenesDetalle o WHERE o.numeroReporte = :numeroReporte")
-    , @NamedQuery(name = "OrdenesDetalle.findByEstadoReporte", query = "SELECT o FROM OrdenesDetalle o WHERE o.estadoReporte = :estadoReporte")})
+    @NamedQuery(name = "OrdenesDetalle.findAll", query = "SELECT o FROM OrdenesDetalle o")})
 public class OrdenesDetalle implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -72,6 +64,15 @@ public class OrdenesDetalle implements Serializable {
     @NotNull
     @Column(name = "estado_reporte")
     private int estadoReporte;
+    @JoinColumn(name = "fk_cliente", referencedColumnName = "id_cliente")
+    @ManyToOne(optional = false)
+    private Clientes fkCliente;
+    @JoinColumn(name = "fk_empresa", referencedColumnName = "id_empresa")
+    @ManyToOne(optional = false)
+    private Empresa fkEmpresa;
+    @JoinColumn(name = "fk_equipos", referencedColumnName = "id_equipos")
+    @ManyToOne(optional = false)
+    private Equipos fkEquipos;
     @JoinColumn(name = "fk_ordenes", referencedColumnName = "id_ordenes")
     @ManyToOne(optional = false)
     private Ordenes fkOrdenes;
@@ -152,6 +153,30 @@ public class OrdenesDetalle implements Serializable {
 
     public void setEstadoReporte(int estadoReporte) {
         this.estadoReporte = estadoReporte;
+    }
+
+    public Clientes getFkCliente() {
+        return fkCliente;
+    }
+
+    public void setFkCliente(Clientes fkCliente) {
+        this.fkCliente = fkCliente;
+    }
+
+    public Empresa getFkEmpresa() {
+        return fkEmpresa;
+    }
+
+    public void setFkEmpresa(Empresa fkEmpresa) {
+        this.fkEmpresa = fkEmpresa;
+    }
+
+    public Equipos getFkEquipos() {
+        return fkEquipos;
+    }
+
+    public void setFkEquipos(Equipos fkEquipos) {
+        this.fkEquipos = fkEquipos;
     }
 
     public Ordenes getFkOrdenes() {
