@@ -27,4 +27,9 @@ public interface CotizacionRepository extends JpaRepository<Cotizacion, Integer>
     public Integer totalCotizacionesByEmpresa(@Param("idEmpresa") Integer idEmpresa);
     
     public List<Cotizacion> findByEstado(@Param("estado") Integer estado);
+    
+    @Query(value = "SELECT id_parametro, nombre FROM parametro where fk_grupo=13;", nativeQuery = true)
+    public List<String> metodosDePago();
+
+    
 }

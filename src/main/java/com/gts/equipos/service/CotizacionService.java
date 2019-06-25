@@ -36,5 +36,8 @@ public class CotizacionService {
         return cotizacionRepository.findCotizacionesClientesActivos(idEmpresa);
     } 
     
+    public List<String> metodosDePago() {
+    	return cotizacionRepository.metodosDePago();
+    }
     
 }

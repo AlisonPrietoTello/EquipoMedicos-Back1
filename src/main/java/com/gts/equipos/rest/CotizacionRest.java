@@ -51,5 +51,10 @@ public class CotizacionRest {
     public List<Cotizacion> findCotizacionesClientesActivos(@PathVariable("idEmpresa") Integer idEmpresa ){
         return service.findCotizacionesClientesActivos(idEmpresa);
     } 
+
+    @GetMapping ("/cotizaciones/medioDePago/list" )
+    public List<String> condicionPago() {
+        return service.metodosDePago();
+    } 
      
 }

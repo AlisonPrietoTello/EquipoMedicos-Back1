@@ -16,14 +16,11 @@ import org.springframework.data.repository.query.Param;
  * @author Erick Arias
  */
 public interface GrupoRepository extends JpaRepository<Grupo, Integer>{
-    
-    
+   
     @Query("SELECT g FROM Grupo g WHERE g.fkEmpresa = :fkEmpresa")
     List<Grupo> findByIdEmpresa(@Param("fkEmpresa") Integer idEmpresa );
     
-    
     @Query("SELECT g FROM Grupo g WHERE g.fkEmpresa = :idEmpresa AND g.idGrupo = :idGrupo")
     List<Grupo> findByFkEmpresaAndGrupos(@Param("idEmpresa") Integer IdEmpresa, @Param("idGrupo") Integer IdEquipos);
-    
     
 }
